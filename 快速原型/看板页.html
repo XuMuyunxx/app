@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>任务看板 · 软件工程第3组</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<style>
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#F5F5F5]">
+<div class="relative w-full h-full max-w-[393px] max-h-[852px] bg-[#F5F5F5] overflow-hidden flex flex-col">
+<!-- 顶部状态栏 + 导航 -->
+<header class="shrink-0 bg-white">
+<div class="h-[44px] px-5 flex items-center justify-between text-[#111]">
+<span class="text-[13px] font-semibold tracking-wide">9:41</span>
+<div class="flex items-center gap-1.5">
+<svg aria-hidden="true" fill="currentColor" height="11" viewbox="0 0 17 11" width="17">
+<rect height="3.5" rx="1" width="3" x="0" y="7.5"></rect>
+<rect height="6" rx="1" width="3" x="4.6" y="5"></rect>
+<rect height="8.5" rx="1" width="3" x="9.2" y="2.5"></rect>
+<rect height="11" rx="1" width="3" x="13.8" y="0"></rect>
+</svg>
+<svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-width="1.4" viewbox="0 0 16 11" width="16">
+<path d="M1 3.6a10.5 10.5 0 0 1 14 0"></path>
+<path d="M3.6 6.3a7 7 0 0 1 8.8 0"></path>
+<path d="M6.2 8.8a3.4 3.4 0 0 1 3.6 0"></path>
+<circle cx="8" cy="10.2" fill="currentColor" r="0.5" stroke="none"></circle>
+</svg>
+<svg aria-hidden="true" fill="none" height="12" viewbox="0 0 25 12" width="25">
+<rect height="10.8" opacity="0.4" rx="3" stroke="currentColor" stroke-width="1" width="20" x="0.6" y="0.6"></rect>
+<rect fill="currentColor" height="7.2" rx="1.8" width="15" x="2.4" y="2.4"></rect>
+<path d="M22.6 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity="0.4"></path>
+</svg>
+</div>
+</div>
+<div class="h-[46px] px-4 flex items-center justify-between">
+<div class="relative">
+<button aria-expanded="false" aria-haspopup="listbox" class="flex items-center gap-1 text-[16px] font-semibold text-[#111]" id="group-switch-trigger" onclick="toggleGroupMenu(event)" type="button">
+<span id="group-name">软件工程第3组</span>
+<span class="mt-[2px] text-[#9A9A9A] transition-transform duration-200" id="group-caret">
+<svg aria-hidden="true" fill="none" height="7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 11 7" width="11">
+<path d="M1 1.4 5.5 5.6 10 1.4"></path>
+</svg>
+</span>
+</button>
+<div class="absolute left-0 top-[calc(100%+6px)] z-40 hidden w-[196px] rounded-2xl bg-white p-1.5 shadow-[0_8px_24px_rgba(0,0,0,0.12)] ring-1 ring-black/5" id="group-menu" onclick="event.stopPropagation()" role="listbox">
+<p class="px-2.5 pb-1 pt-1 text-[10px] font-medium tracking-wide text-[#B0B0B0]">切换小组</p>
+<div id="group-options"></div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="发布任务" class="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-[#07C160] text-white active:opacity-90" onclick="openSheet('sheet-task')" type="button">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-width="1.9" viewbox="0 0 16 16" width="16">
+<path d="M8 2.2v11.6"></path><path d="M2.2 8h11.6"></path>
+</svg>
+</button>
+<div class="flex h-[28px] w-[74px] items-center justify-around rounded-full border border-[#EDEDED] bg-white">
+<svg aria-hidden="true" fill="#333" height="4" viewbox="0 0 14 4" width="14">
+<circle cx="2" cy="2" r="1.4"></circle><circle cx="7" cy="2" r="1.4"></circle><circle cx="12" cy="2" r="1.4"></circle>
+</svg>
+<span class="h-3 w-px bg-[#EDEDED]"></span>
+<svg aria-hidden="true" height="14" viewbox="0 0 14 14" width="14">
+<circle cx="7" cy="7" fill="none" r="5.4" stroke="#333" stroke-width="1.2"></circle>
+<circle cx="7" cy="7" fill="#333" r="1.7"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<!-- 主体 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar">
+<div class="pt-3">
+<!-- 冲刺概览 -->
+<div class="mx-4 rounded-2xl bg-white p-4">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-[11px] text-[#9A9A9A]" id="sprint-stage">本周冲刺 · 需求文档节点</p>
+<p class="mt-1 text-[15px] font-semibold text-[#111]" id="sprint-summary">还差 6 项任务，DDL 11-05 23:59</p>
+</div>
+<div class="text-right">
+<p class="text-[15px] font-semibold text-[#07C160]"><span id="sprint-percent">67</span><span class="text-[11px]">%</span></p>
+<p class="text-[10px] text-[#B0B0B0]" id="sprint-ratio">12/18</p>
+</div>
+</div>
+<div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-[#F2F2F2]">
+<div class="h-full w-[67%] rounded-full bg-[#07C160] transition-all duration-300" id="sprint-bar"></div>
+</div>
+<div class="mt-3 flex items-center justify-between border-t border-[#F5F5F5] pt-3">
+<div class="flex items-center">
+<div class="flex -space-x-1.5" id="sprint-members">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#D6F5E3] text-[9px] font-medium text-[#0B8A4A] ring-2 ring-white">李</span>
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#E6F0FF] text-[9px] font-medium text-[#3B6FD4] ring-2 ring-white">王</span>
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFF1E0] text-[9px] font-medium text-[#B4741A] ring-2 ring-white">陈</span>
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0EDFF] text-[9px] font-medium text-[#6B5BD6] ring-2 ring-white">张</span>
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFEDED] text-[9px] font-medium text-[#C4453F] ring-2 ring-white">周</span>
+</div>
+<span class="ml-2 text-[11px] text-[#9A9A9A]" id="sprint-member-count">5 位成员</span>
+</div>
+<a class="text-[11.5px] font-medium text-[#07C160]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/stats.html?render_html=true">查看统计 ›</a>
+</div>
+</div>
+<div class="mt-4 flex items-center justify-between px-4">
+<h2 class="text-[13px] font-semibold text-[#111]">任务看板</h2>
+<span class="text-[11px] text-[#B0B0B0]">左右滑动查看三列</span>
+</div>
+<!-- 横向滑动位置指示 -->
+<div class="mx-4 mt-2 h-[3px] overflow-hidden rounded-full bg-[#EDEDED]" id="board-indicator-track">
+<div class="h-full w-1/3 rounded-full bg-[#07C160]/50 transition-transform duration-150" id="board-indicator"></div>
+</div>
+<!-- 三列看板（横向滚动） -->
+<div class="mt-2 overflow-x-auto overflow-y-hidden no-scrollbar [touch-action:pan-x_pan-y] [overscroll-behavior-x:contain] cursor-grab select-none" id="board-scroller">
+<div class="flex w-max min-w-max gap-3 px-4 pb-4">
+<!-- 待认领 -->
+<section class="w-[232px] shrink-0">
+<div class="mb-2.5 flex items-center justify-between px-0.5">
+<div class="flex items-center gap-1.5">
+<span class="h-1.5 w-1.5 rounded-full bg-[#B0B0B0]"></span>
+<h3 class="text-[13px] font-semibold text-[#333]">待认领</h3>
+<span class="text-[11px] text-[#B0B0B0]" id="count-todo">3</span>
+</div>
+<span class="text-[10px] text-[#C4C4C4]">按 DDL 排序</span>
+</div>
+<div class="space-y-2.5" id="list-todo">
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">竞品功能调研</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full border border-dashed border-[#D5D5D5] text-[9px] text-[#B0B0B0]" style="opacity: 1;">+</span>
+<span class="text-[11px] text-[#B0B0B0]">未指派</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#FFEDEC] px-1.5 py-[3px] text-[11px] font-medium text-[#E5484D]" style="color: rgb(158, 170, 48);">⏰ 仅剩48h</span>
+<span class="text-[10px] text-[#C4C4C4]">5 条动态</span>
+</div>
+</a>
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">绘制系统用例图</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFEDED] text-[9px] font-medium text-[#C4453F]" style="color: rgb(189, 169, 168); font-size: 9px; padding: 0px;">+</span>
+<span class="text-[11px] text-[#8A8A8A]">未指派</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#FFEDEC] px-1.5 py-[3px] text-[11px] font-medium text-[#E5484D]">⏰ 仅剩3天</span>
+<span class="text-[10px] text-[#C4C4C4]">2 条动态</span>
+</div>
+</a>
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">接口文档初稿</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full border border-dashed border-[#D5D5D5] text-[9px] text-[#B0B0B0]">+</span>
+<span class="text-[11px] text-[#B0B0B0]">未指派</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#FFF6E8] px-1.5 py-[3px] text-[11px] font-medium text-[#B4741A]">⏰ 仅剩5天</span>
+<span class="text-[10px] text-[#C4C4C4]">1 条动态</span>
+</div>
+</a>
+</div>
+</section>
+<!-- 进行中 -->
+<section class="w-[232px] shrink-0">
+<div class="mb-2.5 flex items-center justify-between px-0.5">
+<div class="flex items-center gap-1.5">
+<span class="h-1.5 w-1.5 rounded-full bg-[#07C160]"></span>
+<h3 class="text-[13px] font-semibold text-[#333]">进行中</h3>
+<span class="text-[11px] text-[#B0B0B0]" id="count-doing">3</span>
+</div>
+<span class="text-[10px] text-[#C4C4C4]">按 DDL 排序</span>
+</div>
+<div class="space-y-2.5" id="list-doing">
+<a class="block rounded-xl bg-white p-3.5 ring-1 ring-[#07C160]/25 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<div class="flex items-start justify-between gap-2">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">撰写需求文档</h4>
+<span class="mt-[2px] shrink-0 rounded bg-[#E8F8EF] px-1 py-[1px] text-[9px] font-medium text-[#0B8A4A]">我的</span>
+</div>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#D6F5E3] text-[9px] font-medium text-[#0B8A4A]">李</span>
+<span class="text-[11px] text-[#8A8A8A]">李思远</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#FFEDEC] px-1.5 py-[3px] text-[11px] font-medium text-[#E5484D]">⏰ 仅剩24h</span>
+<span class="text-[10px] text-[#C4C4C4]">4 条动态</span>
+</div>
+</a>
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">前端原型评审</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFF1E0] text-[9px] font-medium text-[#B4741A]">陈</span>
+<span class="text-[11px] text-[#8A8A8A]">陈嘉禾</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#FFEDEC] px-1.5 py-[3px] text-[11px] font-medium text-[#E5484D]">⏰ 仅剩2天</span>
+<span class="text-[10px] text-[#C4C4C4]">3 条动态</span>
+</div>
+</a>
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">数据库表设计</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#F0EDFF] text-[9px] font-medium text-[#6B5BD6]">张</span>
+<span class="text-[11px] text-[#8A8A8A]">张一鸣</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#FFEDEC] px-1.5 py-[3px] text-[11px] font-medium text-[#E5484D]">⏰ 仅剩36h</span>
+<span class="text-[10px] text-[#C4C4C4]">2 条动态</span>
+</div>
+</a>
+</div>
+</section>
+<!-- 已完成 -->
+<section class="w-[232px] shrink-0">
+<div class="mb-2.5 flex items-center justify-between px-0.5">
+<div class="flex items-center gap-1.5">
+<span class="h-1.5 w-1.5 rounded-full bg-[#C9C9C9]"></span>
+<h3 class="text-[13px] font-semibold text-[#333]">已完成</h3>
+<span class="text-[11px] text-[#B0B0B0]" id="count-done">3</span>
+</div>
+<span class="text-[10px] text-[#C4C4C4]">本周</span>
+</div>
+<div class="space-y-2.5" id="list-done">
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#9A9A9A] line-through decoration-[#DCDCDC]">小组分工表</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#E6F0FF] text-[9px] font-medium text-[#3B6FD4]">王</span>
+<span class="text-[11px] text-[#8A8A8A]">王雨桐</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#F3F3F3] px-1.5 py-[3px] text-[11px] font-medium text-[#8A8A8A]">✓ 已归档</span>
+<span class="text-[10px] text-[#C4C4C4]">10-19</span>
+</div>
+</a>
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#9A9A9A] line-through decoration-[#DCDCDC]">需求评审会议纪要</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#D6F5E3] text-[9px] font-medium text-[#0B8A4A]">李</span>
+<span class="text-[11px] text-[#8A8A8A]">李思远</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#F3F3F3] px-1.5 py-[3px] text-[11px] font-medium text-[#8A8A8A]">✓ 已归档</span>
+<span class="text-[10px] text-[#C4C4C4]">10-21</span>
+</div>
+</a>
+<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/task-detail.html?render_html=true">
+<h4 class="text-[14px] font-semibold leading-[1.45] text-[#9A9A9A] line-through decoration-[#DCDCDC]">开发环境搭建</h4>
+<div class="mt-2.5 flex items-center gap-1.5">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-[#FFF1E0] text-[9px] font-medium text-[#B4741A]">陈</span>
+<span class="text-[11px] text-[#8A8A8A]">陈嘉禾</span>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="rounded-md bg-[#F3F3F3] px-1.5 py-[3px] text-[11px] font-medium text-[#8A8A8A]">✓ 已归档</span>
+<span class="text-[10px] text-[#C4C4C4]">10-22</span>
+</div>
+</a>
+</div>
+</section>
+</div>
+</div>
+<p class="px-4 pb-3 text-center text-[11px] text-[#B8B8B8]">长按任务卡片可拖动排序（演示版仅支持查看）</p>
+</div>
+</main>
+<!-- 反馈入口 -->
+<div class="shrink-0 bg-[#F5F5F5] px-4 pb-2 pt-1">
+<button class="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-[#E6E6E6] bg-white text-[14px] font-medium text-[#07C160] active:bg-[#F7F7F7]" onclick="openSheet('sheet-feedback')" type="button">
+<svg aria-hidden="true" class="" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" style="color: rgb(118, 156, 54);" viewbox="0 0 20 20" width="16">
+<path d="M10 3.2c3.9 0 7 2.5 7 5.6 0 1.6-.9 3.1-2.4 4.2v2.8l-3-1.4c-.5.1-1 .1-1.6.1-3.9 0-7-2.5-7-5.7S6.1 3.2 10 3.2Z"></path>
+<path d="M6.8 8.8h6.4"></path>
+</svg>
+<span class="" style="color: rgb(198, 158, 39);">反馈给组长</span>
+</button>
+</div>
+<!-- 底部 Tab 栏 -->
+<nav class="shrink-0 border-t border-[#F0F0F0] bg-white">
+<div class="flex h-[58px] items-stretch">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#9A9A9A]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/home.html?render_html=true">
+<svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" width="21">
+<path d="M3.5 10.6 12 3.8l8.5 6.8"></path>
+<path d="M5.8 9.6V19a1 1 0 0 0 1 1h10.4a1 1 0 0 0 1-1V9.6"></path>
+</svg>
+<span class="text-[10px]">首页</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#07C160]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/board.html?render_html=true">
+<svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" width="21">
+<rect height="15" rx="1.6" width="5.2" x="3" y="4.5"></rect>
+<rect height="10" rx="1.6" width="5.2" x="9.4" y="4.5"></rect>
+<rect height="6.5" rx="1.6" width="5.2" x="15.8" y="4.5"></rect>
+</svg>
+<span class="text-[10px] font-medium">看板</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#9A9A9A]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/stats.html?render_html=true">
+<svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" width="21">
+<path d="M4 20V13.5"></path><path d="M10 20V8.5"></path><path d="M16 20V5"></path><path d="M21.5 20V11"></path>
+</svg>
+<span class="text-[10px]">统计</span>
+</a>
+</div>
+</nav>
+<!-- 弹窗：发布任务 -->
+<div class="absolute inset-0 z-50 hidden" id="sheet-task">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-backdrop="" onclick="closeSheet('sheet-task')"></div>
+<div class="absolute bottom-0 left-0 right-0 max-h-[82%] translate-y-full overflow-y-auto no-scrollbar rounded-t-[20px] bg-white transition-transform duration-300 ease-out" data-panel="">
+<div class="px-5 pt-3">
+<div class="mx-auto h-1 w-9 rounded-full bg-[#E8E8E8]"></div>
+<div class="mt-3 flex items-center justify-between">
+<h2 class="text-[17px] font-semibold text-[#111]">发布任务</h2>
+<button aria-label="关闭" class="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5F5F5] text-[#8A8A8A]" onclick="closeSheet('sheet-task')" type="button">
+<svg aria-hidden="true" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewbox="0 0 12 12" width="12">
+<path d="M1.6 1.6 10.4 10.4"></path><path d="M10.4 1.6 1.6 10.4"></path>
+</svg>
+</button>
+</div>
+<p class="mt-1.5 text-[12px] text-[#8A8A8A]">发布后进入「待认领」列，组员可自行认领</p>
+</div>
+<div class="px-5 pb-4 pt-5">
+<label class="block text-[13px] font-medium text-[#444]" for="task-name">任务名称</label>
+<input class="mt-2 h-11 w-full rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 text-[14px] text-[#111] placeholder:text-[#B8B8B8] focus:border-[#07C160] focus:bg-white focus:outline-none" id="task-name" maxlength="30" placeholder="如：整理需求评审意见" type="text"/>
+<label class="mt-4 block text-[13px] font-medium text-[#444]" for="task-ddl">截止时间(DDL)</label>
+<div class="relative mt-2">
+<select class="h-11 w-full appearance-none rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 pr-10 text-[14px] text-[#111] focus:border-[#07C160] focus:bg-white focus:outline-none" id="task-ddl">
+<option>今天 23:59</option>
+<option>明天 23:59</option>
+<option selected="">11-03 23:59</option>
+<option>11-05 23:59</option>
+<option>11-08 23:59</option>
+</select>
+<span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9A9A9A]">
+<svg aria-hidden="true" fill="none" height="7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 11 7" width="11">
+<path d="M1 1.4 5.5 5.6 10 1.4"></path>
+</svg>
+</span>
+</div>
+<label class="mt-4 block text-[13px] font-medium text-[#444]" for="task-owner">指定负责人(选填)</label>
+<div class="relative mt-2">
+<select class="h-11 w-full appearance-none rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 pr-10 text-[14px] text-[#111] focus:border-[#07C160] focus:bg-white focus:outline-none" id="task-owner">
+<option selected="">暂不指定，开放认领</option>
+<option>李思远（组长）</option>
+<option>王雨桐</option>
+<option>陈嘉禾</option>
+<option>张一鸣</option>
+<option>周可欣</option>
+</select>
+<span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9A9A9A]">
+<svg aria-hidden="true" fill="none" height="7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 11 7" width="11">
+<path d="M1 1.4 5.5 5.6 10 1.4"></path>
+</svg>
+</span>
+</div>
+<div class="mt-4 flex items-center gap-2 rounded-xl bg-[#F8F8F8] px-3 py-2.5">
+<span class="text-[#07C160]">
+<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 20 20" width="14">
+<circle cx="10" cy="10" r="7.6"></circle><path d="M10 6.2V10l2.6 1.7"></path>
+</svg>
+</span>
+<p class="text-[11.5px] text-[#8A8A8A]">系统将在 DDL 前 24 小时提醒负责人</p>
+</div>
+</div>
+<div class="px-5 pb-6">
+<button class="h-12 w-full rounded-xl bg-[#07C160] text-[15px] font-medium text-white active:opacity-90" onclick="confirmPublish()" type="button">确认发布</button>
+</div>
+</div>
+</div>
+<!-- 弹窗：反馈 -->
+<div class="absolute inset-0 z-50 hidden" id="sheet-feedback">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-backdrop="" onclick="closeSheet('sheet-feedback')"></div>
+<div class="absolute bottom-0 left-0 right-0 max-h-[70%] translate-y-full overflow-y-auto no-scrollbar rounded-t-[20px] bg-white transition-transform duration-300 ease-out" data-panel="">
+<div class="px-5 pt-3">
+<div class="mx-auto h-1 w-9 rounded-full bg-[#E8E8E8]"></div>
+<div class="mt-3 flex items-center justify-between">
+<h2 class="text-[17px] font-semibold text-[#111]">向组长反馈</h2>
+<button aria-label="关闭" class="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5F5F5] text-[#8A8A8A]" onclick="closeSheet('sheet-feedback')" type="button">
+<svg aria-hidden="true" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewbox="0 0 12 12" width="12">
+<path d="M1.6 1.6 10.4 10.4"></path><path d="M10.4 1.6 1.6 10.4"></path>
+</svg>
+</button>
+</div>
+<p class="mt-1.5 text-[12px] text-[#8A8A8A]">反馈后将同步给组长，仅组内可见</p>
+</div>
+<div class="px-5 pb-4 pt-5">
+<label class="block text-[13px] font-medium text-[#444]" for="feedback-reason">反馈原因</label>
+<div class="relative mt-2">
+<select class="h-11 w-full appearance-none rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 pr-10 text-[14px] text-[#111] focus:border-[#07C160] focus:bg-white focus:outline-none" id="feedback-reason">
+<option selected="">缺乏资料</option>
+<option>资料有误</option>
+<option>分工不明确</option>
+<option>进度受阻</option>
+<option>其他</option>
+</select>
+<span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9A9A9A]">
+<svg aria-hidden="true" fill="none" height="7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 11 7" width="11">
+<path d="M1 1.4 5.5 5.6 10 1.4"></path>
+</svg>
+</span>
+</div>
+<label class="mt-4 block text-[13px] font-medium text-[#444]" for="feedback-detail">具体诉求</label>
+<textarea class="mt-2 h-[104px] w-full resize-none rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 py-3 text-[14px] leading-relaxed text-[#111] placeholder:text-[#B8B8B8] focus:border-[#07C160] focus:bg-white focus:outline-none" id="feedback-detail" maxlength="200" placeholder="请输入您的具体诉求..."></textarea>
+</div>
+<div class="px-5 pb-6">
+<button class="h-12 w-full rounded-xl bg-[#07C160] text-[15px] font-medium text-white active:opacity-90" onclick="sendFeedback()" type="button">发送给组长</button>
+</div>
+</div>
+</div>
+<!-- 轻提示 -->
+<div class="pointer-events-none absolute bottom-[150px] left-1/2 z-[60] hidden max-w-[290px] -translate-x-1/2 translate-y-2 rounded-xl bg-[#1A1A1A]/85 px-4 py-2.5 text-center text-[13px] leading-snug text-white opacity-0 transition-all duration-200" id="toast"></div>
+</div>
+<script>
+    /* 小组切换：数据驱动看板三列，切换分组回到该组原有看板状态 */
+    var GROUPS = [
+      {
+        id: 'se3',
+        name: '软件工程第3组',
+        stage: '本周冲刺 · 需求文档节点',
+        summary: '还差 6 项任务，DDL 11-05 23:59',
+        doneCount: 12,
+        totalCount: 18,
+        members: [
+          { ch: '李', bg: '#D6F5E3', color: '#0B8A4A' },
+          { ch: '王', bg: '#E6F0FF', color: '#3B6FD4' },
+          { ch: '陈', bg: '#FFF1E0', color: '#B4741A' },
+          { ch: '张', bg: '#F0EDFF', color: '#6B5BD6' },
+          { ch: '周', bg: '#FFEDED', color: '#C4453F' }
+        ],
+        todo: [
+          { title: '竞品功能调研', owner: null, ddl: '⏰ 仅剩48h', ddlTone: 'red', note: '5 条动态' },
+          { title: '绘制系统用例图', owner: null, ddl: '⏰ 仅剩3天', ddlTone: 'red', note: '2 条动态' },
+          { title: '接口文档初稿', owner: null, ddl: '⏰ 仅剩5天', ddlTone: 'amber', note: '1 条动态' }
+        ],
+        doing: [
+          { title: '撰写需求文档', owner: { ch: '李', name: '李思远', bg: '#D6F5E3', color: '#0B8A4A' }, ddl: '⏰ 仅剩24h', note: '4 条动态', mine: true },
+          { title: '前端原型评审', owner: { ch: '陈', name: '陈嘉禾', bg: '#FFF1E0', color: '#B4741A' }, ddl: '⏰ 仅剩2天', note: '3 条动态' },
+          { title: '数据库表设计', owner: { ch: '张', name: '张一鸣', bg: '#F0EDFF', color: '#6B5BD6' }, ddl: '⏰ 仅剩36h', note: '2 条动态' }
+        ],
+        done: [
+          { title: '小组分工表', owner: { ch: '王', name: '王雨桐', bg: '#E6F0FF', color: '#3B6FD4' }, date: '10-19' },
+          { title: '需求评审会议纪要', owner: { ch: '李', name: '李思远', bg: '#D6F5E3', color: '#0B8A4A' }, date: '10-21' },
+          { title: '开发环境搭建', owner: { ch: '陈', name: '陈嘉禾', bg: '#FFF1E0', color: '#B4741A' }, date: '10-22' }
+        ]
+      },
+      {
+        id: 'db1',
+        name: '数据库原理第1组',
+        stage: '本周冲刺 · ER 模型设计',
+        summary: '还差 4 项任务，DDL 11-08 23:59',
+        doneCount: 9,
+        totalCount: 14,
+        members: [
+          { ch: '赵', bg: '#E6F0FF', color: '#3B6FD4' },
+          { ch: '钱', bg: '#D6F5E3', color: '#0B8A4A' },
+          { ch: '孙', bg: '#F0EDFF', color: '#6B5BD6' },
+          { ch: '周', bg: '#FFEDED', color: '#C4453F' }
+        ],
+        todo: [
+          { title: '概念 ER 图绘制', owner: null, ddl: '⏰ 仅剩12h', ddlTone: 'red', note: '3 条动态' },
+          { title: '字段规范整理', owner: null, ddl: '⏰ 仅剩4天', ddlTone: 'amber', note: '2 条动态' }
+        ],
+        doing: [
+          { title: '实验三 事务并发', owner: { ch: '赵', name: '赵梓涵', bg: '#E6F0FF', color: '#3B6FD4' }, ddl: '⏰ 仅剩8h', note: '6 条动态', mine: true },
+          { title: '索引优化报告', owner: { ch: '孙', name: '孙博文', bg: '#F0EDFF', color: '#6B5BD6' }, ddl: '⏰ 仅剩3天', note: '2 条动态' }
+        ],
+        done: [
+          { title: '数据库安装与环境配置', owner: { ch: '钱', name: '钱佳怡', bg: '#D6F5E3', color: '#0B8A4A' }, date: '10-16' },
+          { title: 'SQL 基础练习汇总', owner: { ch: '周', name: '周子墨', bg: '#FFEDED', color: '#C4453F' }, date: '10-20' }
+        ]
+      },
+      {
+        id: 'mk2',
+        name: '市场营销第2组',
+        stage: '本周冲刺 · 校园推广方案',
+        summary: '还差 3 项任务，DDL 11-10 18:00',
+        doneCount: 5,
+        totalCount: 10,
+        members: [
+          { ch: '吴', bg: '#FFF1E0', color: '#B4741A' },
+          { ch: '郑', bg: '#E6F0FF', color: '#3B6FD4' },
+          { ch: '冯', bg: '#D6F5E3', color: '#0B8A4A' }
+        ],
+        todo: [
+          { title: '校园渠道预算表', owner: null, ddl: '⏰ 仅剩2天', ddlTone: 'red', note: '1 条动态' },
+          { title: '竞品定价对标', owner: null, ddl: '⏰ 仅剩6天', ddlTone: 'amber', note: '2 条动态' }
+        ],
+        doing: [
+          { title: '双十一活动策划案', owner: { ch: '吴', name: '吴清源', bg: '#FFF1E0', color: '#B4741A' }, ddl: '⏰ 仅剩18h', note: '7 条动态', mine: true }
+        ],
+        done: [
+          { title: '用户画像调研问卷', owner: { ch: '郑', name: '郑一诺', bg: '#E6F0FF', color: '#3B6FD4' }, date: '10-15' },
+          { title: '社媒素材初版', owner: { ch: '冯', name: '冯晓岚', bg: '#D6F5E3', color: '#0B8A4A' }, date: '10-18' }
+        ]
+      }
+    ];
+
+    var currentGroupIndex = 0;
+
+    function groupOwnerBadge(owner) {
+      return '<span class="flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-medium" style="background:' + owner.bg + ';color:' + owner.color + ';">' + owner.ch + '</span>'
+        + '<span class="text-[11px] text-[#8A8A8A]">' + owner.name + '</span>';
+    }
+
+    function todoCard(task) {
+      var owner = task.owner
+        ? groupOwnerBadge(task.owner)
+        : '<span class="flex h-5 w-5 items-center justify-center rounded-full border border-dashed border-[#D5D5D5] text-[9px] text-[#B0B0B0]">+</span><span class="text-[11px] text-[#B0B0B0]">未指派</span>';
+      var tone = task.ddlTone === 'amber'
+        ? 'bg-[#FFF6E8] text-[#B4741A]'
+        : 'bg-[#FFEDEC] text-[#E5484D]';
+      return '<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="task-detail.html">'
+        + '<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">' + task.title + '</h4>'
+        + '<div class="mt-2.5 flex items-center gap-1.5">' + owner + '</div>'
+        + '<div class="mt-3 flex items-center justify-between">'
+        + '<span class="rounded-md px-1.5 py-[3px] text-[11px] font-medium ' + tone + '">' + task.ddl + '</span>'
+        + '<span class="text-[10px] text-[#C4C4C4]">' + task.note + '</span>'
+        + '</div></a>';
+    }
+
+    function doingCard(task) {
+      var mine = task.mine
+        ? '<span class="mt-[2px] shrink-0 rounded bg-[#E8F8EF] px-1 py-[1px] text-[9px] font-medium text-[#0B8A4A]">我的</span>'
+        : '';
+      return '<a class="block rounded-xl bg-white p-3.5 ' + (task.mine ? 'ring-1 ring-[#07C160]/25 ' : '') + 'active:bg-[#FAFAFA]" href="task-detail.html">'
+        + '<div class="flex items-start justify-between gap-2">'
+        + '<h4 class="text-[14px] font-semibold leading-[1.45] text-[#1A1A1A]">' + task.title + '</h4>' + mine
+        + '</div>'
+        + '<div class="mt-2.5 flex items-center gap-1.5">' + groupOwnerBadge(task.owner) + '</div>'
+        + '<div class="mt-3 flex items-center justify-between">'
+        + '<span class="rounded-md bg-[#FFEDEC] px-1.5 py-[3px] text-[11px] font-medium text-[#E5484D]">' + task.ddl + '</span>'
+        + '<span class="text-[10px] text-[#C4C4C4]">' + task.note + '</span>'
+        + '</div></a>';
+    }
+
+    function doneCard(task) {
+      return '<a class="block rounded-xl bg-white p-3.5 active:bg-[#FAFAFA]" href="task-detail.html">'
+        + '<h4 class="text-[14px] font-semibold leading-[1.45] text-[#9A9A9A] line-through decoration-[#DCDCDC]">' + task.title + '</h4>'
+        + '<div class="mt-2.5 flex items-center gap-1.5">' + groupOwnerBadge(task.owner) + '</div>'
+        + '<div class="mt-3 flex items-center justify-between">'
+        + '<span class="rounded-md bg-[#F3F3F3] px-1.5 py-[3px] text-[11px] font-medium text-[#8A8A8A]">✓ 已归档</span>'
+        + '<span class="text-[10px] text-[#C4C4C4]">' + task.date + '</span>'
+        + '</div></a>';
+    }
+
+    function renderGroupOptions() {
+      var box = document.getElementById('group-options');
+      box.innerHTML = GROUPS.map(function (g, i) {
+        var active = i === currentGroupIndex;
+        return '<button aria-selected="' + (active ? 'true' : 'false') + '" class="flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-2.5 text-left text-[13px] active:bg-[#F7F7F7] '
+          + (active ? 'bg-[#F2FBF6] font-semibold text-[#07C160]' : 'font-medium text-[#333]') + '" onclick="selectGroup(' + i + ')" role="option" type="button">'
+          + '<span class="truncate">' + g.name + '</span>'
+          + (active
+            ? '<svg aria-hidden="true" class="shrink-0" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 12 12" width="11"><path d="M2 6.3 4.7 9 10 3.4"></path></svg>'
+            : '<span class="shrink-0 text-[10px] text-[#C4C4C4]">' + g.doing.length + ' 进行中</span>')
+          + '</button>';
+      }).join('');
+    }
+
+    function renderGroup() {
+      var g = GROUPS[currentGroupIndex];
+      document.getElementById('group-name').textContent = g.name;
+      document.title = '任务看板 · ' + g.name;
+      document.getElementById('sprint-stage').textContent = g.stage;
+      document.getElementById('sprint-summary').textContent = g.summary;
+      var percent = Math.round((g.doneCount / g.totalCount) * 100);
+      document.getElementById('sprint-percent').textContent = percent;
+      document.getElementById('sprint-ratio').textContent = g.doneCount + '/' + g.totalCount;
+      document.getElementById('sprint-bar').style.width = percent + '%';
+      document.getElementById('sprint-members').innerHTML = g.members.map(function (m) {
+        return '<span class="flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-medium ring-2 ring-white" style="background:' + m.bg + ';color:' + m.color + ';">' + m.ch + '</span>';
+      }).join('');
+      document.getElementById('sprint-member-count').textContent = g.members.length + ' 位成员';
+      document.getElementById('list-todo').innerHTML = g.todo.map(todoCard).join('');
+      document.getElementById('list-doing').innerHTML = g.doing.map(doingCard).join('');
+      document.getElementById('list-done').innerHTML = g.done.map(doneCard).join('');
+      document.getElementById('count-todo').textContent = g.todo.length;
+      document.getElementById('count-doing').textContent = g.doing.length;
+      document.getElementById('count-done').textContent = g.done.length;
+      renderGroupOptions();
+      if (window.refreshBoardIndicator) window.refreshBoardIndicator();
+    }
+
+    function openGroupMenu() {
+      var menu = document.getElementById('group-menu');
+      var trigger = document.getElementById('group-switch-trigger');
+      var caret = document.getElementById('group-caret');
+      menu.classList.remove('hidden');
+      trigger.setAttribute('aria-expanded', 'true');
+      caret.classList.add('rotate-180');
+      caret.classList.add('text-[#07C160]');
+    }
+
+    function closeGroupMenu() {
+      var menu = document.getElementById('group-menu');
+      var trigger = document.getElementById('group-switch-trigger');
+      var caret = document.getElementById('group-caret');
+      menu.classList.add('hidden');
+      trigger.setAttribute('aria-expanded', 'false');
+      caret.classList.remove('rotate-180');
+      caret.classList.remove('text-[#07C160]');
+    }
+
+    function toggleGroupMenu(event) {
+      if (event) event.stopPropagation();
+      var menu = document.getElementById('group-menu');
+      if (menu.classList.contains('hidden')) {
+        openGroupMenu();
+      } else {
+        closeGroupMenu();
+      }
+    }
+
+    function selectGroup(index) {
+      if (index === currentGroupIndex) {
+        closeGroupMenu();
+        return;
+      }
+      currentGroupIndex = index;
+      renderGroup();
+      closeGroupMenu();
+      var scroller = document.getElementById('board-scroller');
+      if (scroller) scroller.scrollLeft = 0;
+      showToast('已切换到「' + GROUPS[index].name + '」');
+    }
+
+    document.addEventListener('click', function () {
+      if (!document.getElementById('group-menu').classList.contains('hidden')) closeGroupMenu();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeGroupMenu();
+    });
+    renderGroup();
+
+    function openSheet(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      clearTimeout(el._hideTimer);
+      var backdrop = el.querySelector('[data-backdrop]');
+      var panel = el.querySelector('[data-panel]');
+      el.classList.remove('hidden');
+      void el.offsetHeight;
+      requestAnimationFrame(function () {
+        backdrop.classList.remove('opacity-0');
+        panel.classList.remove('translate-y-full');
+      });
+    }
+
+    function closeSheet(id) {
+      var el = document.getElementById(id);
+      if (!el || el.classList.contains('hidden')) return;
+      var backdrop = el.querySelector('[data-backdrop]');
+      var panel = el.querySelector('[data-panel]');
+      backdrop.classList.add('opacity-0');
+      panel.classList.add('translate-y-full');
+      el._hideTimer = setTimeout(function () {
+        el.classList.add('hidden');
+      }, 320);
+    }
+
+    function showToast(message) {
+      var toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      requestAnimationFrame(function () {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+      });
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(function () {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(function () {
+          toast.classList.add('hidden');
+        }, 220);
+      }, 2200);
+    }
+
+    function confirmPublish() {
+      var name = document.getElementById('task-name').value.trim();
+      if (!name) {
+        showToast('请填写任务名称');
+        return;
+      }
+      closeSheet('sheet-task');
+      showToast('「' + name + '」已发布到待认领');
+    }
+
+    function sendFeedback() {
+      var detail = document.getElementById('feedback-detail').value.trim();
+      if (!detail) {
+        showToast('请填写具体诉求');
+        return;
+      }
+      closeSheet('sheet-feedback');
+      showToast('反馈已发送给组长');
+      document.getElementById('feedback-detail').value = '';
+    }
+
+    /* 三列看板左右滑动：原生横向滚动 + 鼠标/触控拖拽 */
+    (function () {
+      var scroller = document.getElementById('board-scroller');
+      var indicator = document.getElementById('board-indicator');
+      if (!scroller) return;
+
+      function syncIndicator() {
+        if (!indicator) return;
+        var max = scroller.scrollWidth - scroller.clientWidth;
+        var ratio = max > 0 ? scroller.scrollLeft / max : 0;
+        var trackEl = document.getElementById('board-indicator-track') || indicator.parentElement;
+        var track = trackEl.clientWidth;
+        var bar = indicator.offsetWidth;
+        var offset = ratio * Math.max(track - bar, 0);
+        indicator.style.transform = 'translateX(' + offset + 'px)';
+        indicator.style.opacity = max > 0 ? '1' : '0';
+      }
+
+      scroller.addEventListener('scroll', syncIndicator, { passive: true });
+      window.addEventListener('resize', syncIndicator);
+      window.refreshBoardIndicator = syncIndicator;
+      syncIndicator();
+
+      var dragging = false;
+      var moved = false;
+      var startX = 0;
+      var startY = 0;
+      var startLeft = 0;
+
+      function pointOf(e) {
+        return e.touches && e.touches.length ? e.touches[0] : e;
+      }
+
+      function onStart(e) {
+        if (e.type === 'mousedown' && e.button !== 0) return;
+        var p = pointOf(e);
+        dragging = true;
+        moved = false;
+        startX = p.clientX;
+        startY = p.clientY;
+        startLeft = scroller.scrollLeft;
+        scroller.classList.add('cursor-grabbing');
+      }
+
+      function onMove(e) {
+        if (!dragging) return;
+        var p = pointOf(e);
+        var dx = p.clientX - startX;
+        var dy = p.clientY - startY;
+        if (!moved && Math.abs(dx) < 6) return;
+        if (!moved && Math.abs(dy) > Math.abs(dx)) {
+          dragging = false;
+          scroller.classList.remove('cursor-grabbing');
+          return;
+        }
+        moved = true;
+        if (e.cancelable) e.preventDefault();
+        scroller.scrollLeft = startLeft - dx;
+      }
+
+      function onEnd() {
+        if (!dragging) return;
+        dragging = false;
+        scroller.classList.remove('cursor-grabbing');
+      }
+
+      scroller.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+      scroller.addEventListener('touchstart', onStart, { passive: true });
+      scroller.addEventListener('touchmove', onMove, { passive: false });
+      scroller.addEventListener('touchend', onEnd);
+      scroller.addEventListener('touchcancel', onEnd);
+
+      /* 拖拽结束时拦截误触卡片跳转 */
+      scroller.addEventListener('click', function (e) {
+        if (moved) {
+          e.preventDefault();
+          e.stopPropagation();
+          moved = false;
+        }
+      }, true);
+    })();
+  </script>
+</body></html>
