@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2026-10-25" view-index="0" gantt-divider-location="1" resource-divider-location="300" version="3.3.3322" locale="zh_CN">
+    <description/>
+    <view zooming-state="default:4" id="gantt-chart">
+        <field id="tpd3" name="名称" width="152" order="0"/>
+        <field id="tpd4" name="开始日期" width="59" order="1"/>
+        <field id="tpd5" name="结束日期" width="59" order="2"/>
+        <field id="tpd15" name="备注" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#99cc00 #66cc00 #669900 #00cc00 #cccc00 #ffff00 #ff9933 #ff9966 #00ffff #6699ff]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="名称" width="210" order="0"/>
+        <field id="1" name="默认角色" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="e20727159aa34fecbd6ced938f452576" name="选题与计划" color="#33ffff" meeting="false" start="2026-09-16" duration="23" complete="100" expand="true">
+            <task id="1" uid="f9869160b471445e87113a32ceac8f3d" name="确定选题与作业选择" color="#8cb6ce" meeting="false" start="2026-09-16" duration="3" complete="100" expand="true"/>
+            <task id="2" uid="0c90fe7b54254fa98e6c3ecbafb1565c" name="项目介绍ppt制作" color="#8cb6ce" meeting="false" start="2026-09-21" duration="5" complete="100" expand="true"/>
+            <task id="4" uid="aba67a072d664f5099edba7bba82ad14" name="项目计划SDP编写" color="#8cb6ce" meeting="false" start="2026-09-28" duration="10" complete="100" expand="true"/>
+            <task id="3" uid="b1dadc393a8947b08064bd9b04ff2ba6" name="项目计划评审与修订" color="#8cb6ce" meeting="false" start="2026-10-12" duration="5" complete="100" expand="true"/>
+            <task id="5" uid="c1a89e89a46f43deae594d2c9c4f2d0e" name="产出定稿版SDP与介绍ppt" color="#3366ff" meeting="true" start="2026-10-19" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="12" uid="60b9bd78ca27492b97a18dac53d21648" name="可行性研究" color="#66ffff" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true">
+            <task id="24" uid="dad7c535fd5c4435a0d29faf6b46100c" name="技术选择与可行性论证" color="#ff9933" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true">
+                <depend id="36" type="3" difference="0" hardness="Strong"/>
+                <task id="45" uid="6b6de2c4fa33474282055a5ec1a1b04e" name="复查系统规模和目标" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+                <task id="50" uid="134158f409b54c1580fda2a5265fb520" name="研究目前正在使用的系统" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+                <task id="49" uid="fab9cbb43b9e4822b95d7749baf59906" name="导出新系统的高层逻辑模型" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+                <task id="48" uid="48298782ea57470e8fd6d4b665c53935" name="进一步定义问题" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+                <task id="47" uid="fdfe65ec9b6640839942c50924a36f3b" name="导出和评价供选择的解法" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+                <task id="46" uid="4374b44808bc478cac466bf7d32ac0e1" name="推荐行动方针" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+                <task id="51" uid="278ae67acda24fcb82d98dcf08966c7a" name="草拟开发计划书" color="#cccc00" meeting="false" start="2026-10-19" duration="5" complete="0" expand="true"/>
+            </task>
+            <task id="36" uid="3469fe51674048449a60f225f5836e7f" name="可行性分析报告编写" meeting="false" start="2026-10-22" duration="2" complete="0" expand="true"/>
+            <task id="23" uid="0f5568a54ee545659ca019a4739c26b2" name="产出定稿版FAR报告" color="#3366ff" meeting="true" start="2026-10-26" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="19" uid="bf1231ed51fc49a5840a1a69a771f9fb" name="需求分析" color="#00ffff" meeting="false" start="2026-10-26" duration="10" complete="0" expand="true">
+            <task id="31" uid="bb0189603bb647e489673c38fc26aac0" name="需求调研与SRS撰写" color="#ff9933" meeting="false" start="2026-10-26" duration="5" complete="0" expand="true">
+                <task id="57" uid="1385bf9038a64736add611f8dd44c9d4" name="确定对系统的综合要求" color="#66cc00" meeting="false" start="2026-10-26" duration="5" complete="0" expand="true"/>
+                <task id="52" uid="da7669c17e574582a1fb826ababd730e" name="分析系统的数据要求" color="#66cc00" meeting="false" start="2026-10-26" duration="5" complete="0" expand="true"/>
+                <task id="60" uid="764503ba2bb04afd93c16126a964fda0" name="导出系统的逻辑模型" color="#66cc00" meeting="false" start="2026-10-26" duration="5" complete="0" expand="true"/>
+                <task id="59" uid="4bf0eb98f5334106bdacbc33ff05d5fb" name="修正系统开发计划" color="#66cc00" meeting="false" start="2026-10-26" duration="5" complete="0" expand="true"/>
+                <task id="58" uid="3a96e9e7ec1549aba78d42412b9a99eb" name="需求分析报告SRS编写" color="#66cc00" meeting="false" start="2026-10-26" duration="5" complete="0" expand="true"/>
+            </task>
+            <task id="61" uid="38794870ea3f45369c7bbffdf6a47849" name="需求评审与SRS修订" meeting="false" start="2026-11-02" duration="5" complete="0" expand="true"/>
+            <task id="38" uid="eed3c168eaf54e728659a562b5514589" name="产出定稿版SRS与评审ppt" color="#6699ff" meeting="true" start="2026-11-09" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="22" uid="d442f348437e43fa83127ceeccbc172b" name="总体设计与详细设计" color="#00ffff" meeting="false" start="2026-11-09" duration="15" complete="0" expand="true">
+            <task id="32" uid="7f5cd0754c944562bda1424891c696c1" name="总体设计" color="#ff9966" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true">
+                <task id="62" uid="8e3e5f8132b34a83812179fa250d74cf" name="设想供选择的方案" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="70" uid="95075f24236a4b95946b6109993b8eb0" name="选取合理的方案" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="69" uid="3329d8db0b6e4eb29ad8e09bec8c7147" name="推荐最佳方案" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="68" uid="d7e70045dd254a37bebbe716dd8beb7d" name="功能分解" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="67" uid="dbeba2e0cdfe4710b277612f6a25580a" name="设计软件结构" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="66" uid="9f7dfcf4d35f4f868ee1e1d2157c17ef" name="设计数据库" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="65" uid="73b176759c29464cb7feec8d3a254ad6" name="制定测试计划" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="64" uid="c1b64269c5ab4053ba3ea9ace937774a" name="书写文档" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+                <task id="63" uid="7c801946077644d8b7bf8c1ed1532c34" name="审查和复审" color="#99cc00" meeting="false" start="2026-11-09" duration="5" complete="0" expand="true"/>
+            </task>
+            <task id="33" uid="9a602014c9c346f0ae292d7dada08595" name="详细设计" color="#ff9933" meeting="false" start="2026-11-16" duration="5" complete="0" expand="true"/>
+            <task id="34" uid="6f59881fa18942adb35ff31b770fc018" name="设计评审与ppt1" color="#ff9933" meeting="false" start="2026-11-23" duration="5" complete="0" expand="true"/>
+            <task id="28" uid="e1fb3b4678ce43fd86a0d99721c629a4" name="产出定稿版设计报告/完成翻转ppt" color="#3366ff" meeting="true" start="2026-11-30" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="21" uid="8c15070e5ce54e87b85a34c681b74c48" name="编码实现" color="#00ffff" meeting="false" start="2026-11-30" duration="10" complete="0" expand="true">
+            <task id="39" uid="40fb54b4b7c541dd9033e5a93436c788" name="核心功能开发与联调" meeting="false" start="2026-11-30" duration="7" complete="0" expand="true"/>
+            <task id="40" uid="53d161979f8d4998abd64e0436a35beb" name="测试用例整理与MVP确认" meeting="false" start="2026-12-09" duration="2" complete="0" expand="true"/>
+            <task id="41" uid="af370b625bb44363957dd3ef40f27ccd" name="制作翻转ppt2" meeting="false" start="2026-12-11" duration="1" complete="0" expand="true"/>
+            <task id="27" uid="eaa716a520df4ffab3616dd22ddef18f" name="核心闭环完成（MVP）/完成翻转ppt2" color="#3366ff" meeting="true" start="2026-12-14" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="20" uid="539e1a8c10a64659a199fb6f3108246a" name="测试与总结" color="#00ffff" meeting="false" start="2026-12-14" duration="15" complete="0" expand="true">
+            <task id="42" uid="22d9fd5dfb7d4d0eaa6f675267dc11e9" name="系统测试与BUG修复" meeting="false" start="2026-12-14" duration="5" complete="0" expand="true"/>
+            <task id="43" uid="b28d4105ceb74f399bf6d3fdab3d620e" name="项目总结与文档完善" meeting="false" start="2026-12-21" duration="5" complete="0" expand="true"/>
+            <task id="44" uid="4318cc06fb7b4086971683250c21934e" name="总评审ppt与答辩准备" meeting="false" start="2026-12-28" duration="5" complete="0" expand="true"/>
+            <task id="26" uid="18a5efd2fdb74ebe93e1a0c3d333aaa3" name="产出定稿版测试报告/总结报告" color="#3366ff" meeting="true" start="2027-01-04" duration="0" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources>
+        <resource id="0" name="张冰雪" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="0" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="34" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="31" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles>
+        <role id="1" name="张冰雪"/>
+    </roles>
+</project>

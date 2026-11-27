@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我的协作台 · 小组作业协作</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<style>
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  </style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-[#F5F5F5]">
+<div class="relative w-full h-full max-w-[393px] max-h-[852px] bg-[#F5F5F5] overflow-hidden flex flex-col">
+<!-- 顶部状态栏 -->
+<header class="shrink-0 bg-white">
+<div class="h-[44px] px-5 flex items-center justify-between text-[#111]">
+<span class="text-[13px] font-semibold tracking-wide">9:41</span>
+<div class="flex items-center gap-1.5">
+<svg aria-hidden="true" fill="currentColor" height="11" viewbox="0 0 17 11" width="17">
+<rect height="3.5" rx="1" width="3" x="0" y="7.5"></rect>
+<rect height="6" rx="1" width="3" x="4.6" y="5"></rect>
+<rect height="8.5" rx="1" width="3" x="9.2" y="2.5"></rect>
+<rect height="11" rx="1" width="3" x="13.8" y="0"></rect>
+</svg>
+<svg aria-hidden="true" fill="none" height="11" stroke="currentColor" stroke-linecap="round" stroke-width="1.4" viewbox="0 0 16 11" width="16">
+<path d="M1 3.6a10.5 10.5 0 0 1 14 0"></path>
+<path d="M3.6 6.3a7 7 0 0 1 8.8 0"></path>
+<path d="M6.2 8.8a3.4 3.4 0 0 1 3.6 0"></path>
+<circle cx="8" cy="10.2" fill="currentColor" r="0.5" stroke="none"></circle>
+</svg>
+<svg aria-hidden="true" fill="none" height="12" viewbox="0 0 25 12" width="25">
+<rect height="10.8" opacity="0.4" rx="3" stroke="currentColor" stroke-width="1" width="20" x="0.6" y="0.6"></rect>
+<rect fill="currentColor" height="7.2" rx="1.8" width="15" x="2.4" y="2.4"></rect>
+<path d="M22.6 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity="0.4"></path>
+</svg>
+</div>
+</div>
+<div class="h-[46px] px-4 flex items-center justify-between">
+<h1 class="text-[17px] font-semibold text-[#111] tracking-tight">我的协作台</h1>
+<div class="flex h-[28px] w-[74px] items-center justify-around rounded-full border border-[#EDEDED] bg-white">
+<svg aria-hidden="true" fill="#333" height="4" viewbox="0 0 14 4" width="14">
+<circle cx="2" cy="2" r="1.4"></circle><circle cx="7" cy="2" r="1.4"></circle><circle cx="12" cy="2" r="1.4"></circle>
+</svg>
+<span class="h-3 w-px bg-[#EDEDED]"></span>
+<svg aria-hidden="true" height="14" viewbox="0 0 14 14" width="14">
+<circle cx="7" cy="7" fill="none" r="5.4" stroke="#333" stroke-width="1.2"></circle>
+<circle cx="7" cy="7" fill="#333" r="1.7"></circle>
+</svg>
+</div>
+</div>
+</header>
+<!-- 主体 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden no-scrollbar">
+<div class="px-4 pt-4 pb-3">
+<p class="text-[12px] text-[#8A8A8A]">本学期 4 个小组 · 12 项任务待跟进</p>
+<!-- 待办提醒 -->
+<div class="mt-3 flex items-start gap-2.5 rounded-2xl bg-white p-3.5">
+<div class="mt-[1px] flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E8F8EF] text-[#07C160]">
+<svg aria-hidden="true" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewbox="0 0 20 20" width="16">
+<circle cx="10" cy="10" r="7.6"></circle>
+<path d="M10 5.8V10l2.8 1.8"></path>
+</svg>
+</div>
+<div class="min-w-0">
+<p class="text-[12.5px] font-medium text-[#1A1A1A]">明天 23:59 前需提交「算法实验二」</p>
+<p class="mt-1 text-[11.5px] leading-relaxed text-[#8A8A8A]">数据结构与算法 · 图论组 · 还差 2 份实验报告</p>
+</div>
+</div>
+<div class="mt-5 flex items-end justify-between">
+<h2 class="text-[14px] font-semibold text-[#111]">我的小组</h2>
+<span class="text-[11px] text-[#B0B0B0]">共 4 个</span>
+</div>
+<div class="mt-3 space-y-3">
+<!-- 小组卡片 1 -->
+<a class="block rounded-2xl bg-white p-4 active:bg-[#FCFCFC]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/board.html?render_html=true">
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="text-[11px] text-[#9A9A9A]">软件工程 · 周三 1-2 节</p>
+<h3 class="mt-1 truncate text-[16px] font-semibold text-[#111]">第3组 · 需求文档攻坚</h3>
+</div>
+<span class="shrink-0 rounded-md bg-[#E8F8EF] px-2 py-[3px] text-[11px] font-medium text-[#0B8A4A]">组长</span>
+</div>
+<div class="mt-3.5 flex items-center justify-between">
+<div class="flex items-center">
+<div class="flex -space-x-1.5">
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#D6F5E3] text-[10px] font-medium text-[#0B8A4A] ring-2 ring-white">李</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#E6F0FF] text-[10px] font-medium text-[#3B6FD4] ring-2 ring-white">王</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFF1E0] text-[10px] font-medium text-[#B4741A] ring-2 ring-white">陈</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#F0EDFF] text-[10px] font-medium text-[#6B5BD6] ring-2 ring-white">张</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFEDED] text-[10px] font-medium text-[#C4453F] ring-2 ring-white">周</span>
+</div>
+<span class="ml-2 text-[11px] text-[#9A9A9A]">5 人</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[11px] text-[#9A9A9A]">进度</span>
+<span class="text-[11.5px] font-semibold text-[#111]">12/18</span>
+</div>
+</div>
+<div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-[#F2F2F2]">
+<div class="h-full w-[67%] rounded-full bg-[#07C160]"></div>
+</div>
+<div class="mt-3 flex items-center justify-between border-t border-[#F4F4F4] pt-3">
+<span class="text-[11px] text-[#9A9A9A]">⏰ 最近 DDL 11-05 23:59</span>
+<span class="text-[11.5px] font-medium text-[#07C160]">进入看板 ›</span>
+</div>
+</a>
+<!-- 小组卡片 2 -->
+<a class="block rounded-2xl bg-white p-4 active:bg-[#FCFCFC]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/board.html?render_html=true">
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="text-[11px] text-[#9A9A9A]">数据结构与算法 · 周二 3-4 节</p>
+<h3 class="mt-1 truncate text-[16px] font-semibold text-[#111]">算法实验二 · 图论组</h3>
+</div>
+<span class="shrink-0 rounded-md bg-[#EAF1FF] px-2 py-[3px] text-[11px] font-medium text-[#3B6FD4]">文档负责人</span>
+</div>
+<div class="mt-3.5 flex items-center justify-between">
+<div class="flex items-center">
+<div class="flex -space-x-1.5">
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#D6F5E3] text-[10px] font-medium text-[#0B8A4A] ring-2 ring-white">李</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#E6F0FF] text-[10px] font-medium text-[#3B6FD4] ring-2 ring-white">王</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#F0EDFF] text-[10px] font-medium text-[#6B5BD6] ring-2 ring-white">张</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFEDED] text-[10px] font-medium text-[#C4453F] ring-2 ring-white">周</span>
+</div>
+<span class="ml-2 text-[11px] text-[#9A9A9A]">4 人</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[11px] text-[#9A9A9A]">进度</span>
+<span class="text-[11.5px] font-semibold text-[#111]">8/10</span>
+</div>
+</div>
+<div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-[#F2F2F2]">
+<div class="h-full w-[80%] rounded-full bg-[#07C160]"></div>
+</div>
+<div class="mt-3 flex items-center justify-between border-t border-[#F4F4F4] pt-3">
+<span class="text-[11px] text-[#E5484D]">⏰ 最近 DDL 11-02 23:59</span>
+<span class="text-[11.5px] font-medium text-[#07C160]">进入看板 ›</span>
+</div>
+</a>
+<!-- 小组卡片 3 -->
+<a class="block rounded-2xl bg-white p-4 active:bg-[#FCFCFC]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/board.html?render_html=true">
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="text-[11px] text-[#9A9A9A]">大学英语（III） · 周五 5-6 节</p>
+<h3 class="mt-1 truncate text-[16px] font-semibold text-[#111]">Unit 5 Presentation</h3>
+</div>
+<span class="shrink-0 rounded-md bg-[#F3F3F3] px-2 py-[3px] text-[11px] font-medium text-[#6B6B6B]">组员</span>
+</div>
+<div class="mt-3.5 flex items-center justify-between">
+<div class="flex items-center">
+<div class="flex -space-x-1.5">
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFF1E0] text-[10px] font-medium text-[#B4741A] ring-2 ring-white">陈</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#D6F5E3] text-[10px] font-medium text-[#0B8A4A] ring-2 ring-white">李</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#E6F0FF] text-[10px] font-medium text-[#3B6FD4] ring-2 ring-white">王</span>
+</div>
+<span class="ml-2 text-[11px] text-[#9A9A9A]">3 人</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[11px] text-[#9A9A9A]">进度</span>
+<span class="text-[11.5px] font-semibold text-[#111]">3/6</span>
+</div>
+</div>
+<div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-[#F2F2F2]">
+<div class="h-full w-[50%] rounded-full bg-[#07C160]"></div>
+</div>
+<div class="mt-3 flex items-center justify-between border-t border-[#F4F4F4] pt-3">
+<span class="text-[11px] text-[#9A9A9A]">⏰ 最近 DDL 11-12 20:00</span>
+<span class="text-[11.5px] font-medium text-[#07C160]">进入看板 ›</span>
+</div>
+</a>
+<!-- 小组卡片 4 -->
+<a class="block rounded-2xl bg-white p-4 active:bg-[#FCFCFC]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/board.html?render_html=true">
+<div class="flex items-start justify-between gap-3">
+<div class="min-w-0">
+<p class="text-[11px] text-[#9A9A9A]">马克思主义基本原理 · 实践课</p>
+<h3 class="mt-1 truncate text-[16px] font-semibold text-[#111]">社会实践调研小组</h3>
+</div>
+<span class="shrink-0 rounded-md bg-[#F3F3F3] px-2 py-[3px] text-[11px] font-medium text-[#6B6B6B]">组员</span>
+</div>
+<div class="mt-3.5 flex items-center justify-between">
+<div class="flex items-center">
+<div class="flex -space-x-1.5">
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#F0EDFF] text-[10px] font-medium text-[#6B5BD6] ring-2 ring-white">张</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#D6F5E3] text-[10px] font-medium text-[#0B8A4A] ring-2 ring-white">李</span>
+<span class="flex h-6 w-6 items-center justify-center rounded-full bg-[#FFEDED] text-[10px] font-medium text-[#C4453F] ring-2 ring-white">周</span>
+</div>
+<span class="ml-2 text-[11px] text-[#9A9A9A]">5 人</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="text-[11px] text-[#9A9A9A]">进度</span>
+<span class="text-[11.5px] font-semibold text-[#111]">6/6</span>
+</div>
+</div>
+<div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-[#F2F2F2]">
+<div class="h-full w-full rounded-full bg-[#07C160]"></div>
+</div>
+<div class="mt-3 flex items-center justify-between border-t border-[#F4F4F4] pt-3">
+<span class="text-[11px] text-[#9A9A9A]">✓ 已于 10-18 完成 · 材料已归档</span>
+<span class="text-[11.5px] text-[#B0B0B0]">查看记录 ›</span>
+</div>
+</a>
+</div>
+<p class="mt-4 text-center text-[11px] leading-relaxed text-[#B8B8B8]">
+          小组仅成员可见 · 邀请口令 6 位，24 小时内有效
+        </p>
+</div>
+</main>
+<!-- 底部操作按钮 -->
+<div class="shrink-0 px-4 pt-1 pb-3">
+<div class="flex gap-3">
+<button class="h-11 flex-1 rounded-xl bg-[#07C160] text-[15px] font-medium text-white active:opacity-90" onclick="openSheet('sheet-join')" type="button">加入小组</button>
+<button class="h-11 flex-1 rounded-xl border border-[#E5E5E5] bg-white text-[15px] font-medium text-[#111] active:bg-[#FAFAFA]" onclick="openSheet('sheet-create')" type="button">创建小组</button>
+</div>
+</div>
+<!-- 底部 Tab 栏 -->
+<nav class="shrink-0 border-t border-[#F0F0F0] bg-white">
+<div class="flex h-[58px] items-stretch">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#07C160]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/home.html?render_html=true">
+<svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" width="21">
+<path d="M3.5 10.6 12 3.8l8.5 6.8"></path>
+<path d="M5.8 9.6V19a1 1 0 0 0 1 1h10.4a1 1 0 0 0 1-1V9.6"></path>
+</svg>
+<span class="text-[10px] font-medium">首页</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#9A9A9A]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/board.html?render_html=true">
+<svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" width="21">
+<rect height="15" rx="1.6" width="5.2" x="3" y="4.5"></rect>
+<rect height="10" rx="1.6" width="5.2" x="9.4" y="4.5"></rect>
+<rect height="6.5" rx="1.6" width="5.2" x="15.8" y="4.5"></rect>
+</svg>
+<span class="text-[10px]">看板</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-[#9A9A9A]" href="https://modao.cc/agent-py/workspace/6ae6b661bcb57b5224bf4e8e/group-collab.html/stats.html?render_html=true">
+<svg aria-hidden="true" fill="none" height="21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" viewbox="0 0 24 24" width="21">
+<path d="M4 20V13.5"></path><path d="M10 20V8.5"></path><path d="M16 20V5"></path><path d="M21.5 20V11"></path>
+</svg>
+<span class="text-[10px]">统计</span>
+</a>
+</div>
+</nav>
+<!-- 弹窗：创建小组 -->
+<div class="absolute inset-0 z-50 hidden" id="sheet-create">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-backdrop="" onclick="closeSheet('sheet-create')"></div>
+<div class="absolute bottom-0 left-0 right-0 max-h-[82%] translate-y-full overflow-y-auto no-scrollbar rounded-t-[20px] bg-white transition-transform duration-300 ease-out" data-panel="">
+<div class="px-5 pt-3">
+<div class="mx-auto h-1 w-9 rounded-full bg-[#E8E8E8]"></div>
+<div class="mt-3 flex items-center justify-between">
+<h2 class="text-[17px] font-semibold text-[#111]">创建小组</h2>
+<button aria-label="关闭" class="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5F5F5] text-[#8A8A8A]" onclick="closeSheet('sheet-create')" type="button">
+<svg aria-hidden="true" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewbox="0 0 12 12" width="12">
+<path d="M1.6 1.6 10.4 10.4"></path><path d="M10.4 1.6 1.6 10.4"></path>
+</svg>
+</button>
+</div>
+<p class="mt-1.5 text-[12px] text-[#8A8A8A]">创建后自动生成 6 位邀请口令，组员凭口令加入</p>
+</div>
+<div class="px-5 pb-4 pt-5">
+<label class="block text-[13px] font-medium text-[#444]" for="create-name">小组名称</label>
+<input class="mt-2 h-11 w-full rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 text-[14px] text-[#111] placeholder:text-[#B8B8B8] focus:border-[#07C160] focus:bg-white focus:outline-none" id="create-name" maxlength="20" placeholder="如：需求文档攻坚组" type="text"/>
+<label class="mt-4 block text-[13px] font-medium text-[#444]" for="create-course">课程名称</label>
+<input class="mt-2 h-11 w-full rounded-xl border border-transparent bg-[#F6F6F6] px-3.5 text-[14px] text-[#111] placeholder:text-[#B8B8B8] focus:border-[#07C160] focus:bg-white focus:outline-none" id="create-course" maxlength="20" placeholder="如：软件工程" type="text"/>
+<div class="mt-4 flex items-start gap-2 rounded-xl bg-[#F8F8F8] p-3">
+<span class="mt-[1px] text-[#07C160]">
+<svg aria-hidden="true" fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-width="1.6" viewbox="0 0 20 20" width="14">
+<circle cx="10" cy="10" r="7.6"></circle><path d="M10 9v4.4"></path><circle cx="10" cy="6.3" fill="currentColor" r="0.9" stroke="none"></circle>
+</svg>
+</span>
+<p class="text-[11.5px] leading-relaxed text-[#8A8A8A]">口令有效期 24 小时，可随时在小组成员页重新生成。</p>
+</div>
+</div>
+<div class="px-5 pb-6">
+<button class="h-12 w-full rounded-xl bg-[#07C160] text-[15px] font-medium text-white active:opacity-90" onclick="confirmCreate()" type="button">确认创建并生成邀请</button>
+</div>
+</div>
+</div>
+<!-- 弹窗：加入小组 -->
+<div class="absolute inset-0 z-50 hidden" id="sheet-join">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-backdrop="" onclick="closeSheet('sheet-join')"></div>
+<div class="absolute bottom-0 left-0 right-0 max-h-[82%] translate-y-full overflow-y-auto no-scrollbar rounded-t-[20px] bg-white transition-transform duration-300 ease-out" data-panel="">
+<div class="px-5 pt-3">
+<div class="mx-auto h-1 w-9 rounded-full bg-[#E8E8E8]"></div>
+<div class="mt-3 flex items-center justify-between">
+<h2 class="text-[17px] font-semibold text-[#111]">加入小组</h2>
+<button aria-label="关闭" class="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5F5F5] text-[#8A8A8A]" onclick="closeSheet('sheet-join')" type="button">
+<svg aria-hidden="true" fill="none" height="12" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewbox="0 0 12 12" width="12">
+<path d="M1.6 1.6 10.4 10.4"></path><path d="M10.4 1.6 1.6 10.4"></path>
+</svg>
+</button>
+</div>
+</div>
+<div class="px-5 pt-6 pb-4">
+<p class="text-center text-[13px] text-[#666]">请输入6位邀请口令</p>
+<div class="mt-4">
+<input autocomplete="off" class="h-14 w-full rounded-xl border border-transparent bg-[#F6F6F6] text-center text-[20px] font-semibold tracking-[0.35em] text-[#111] placeholder:tracking-[0.35em] placeholder:text-[#CFCFCF] focus:border-[#07C160] focus:bg-white focus:outline-none" id="join-pin" inputmode="text" maxlength="6" placeholder="••••••" type="text"/>
+</div>
+<p class="mt-3 text-center text-[11.5px] text-[#A0A0A0]">口令由组长分享，大小写均可 · 24 小时内有效</p>
+</div>
+<div class="px-5 pb-6">
+<button class="h-12 w-full rounded-xl bg-[#07C160] text-[15px] font-medium text-white active:opacity-90" onclick="confirmJoin()" type="button">确认加入</button>
+</div>
+</div>
+</div>
+<!-- 轻提示 -->
+<div class="pointer-events-none absolute bottom-[150px] left-1/2 z-[60] hidden max-w-[290px] -translate-x-1/2 translate-y-2 rounded-xl bg-[#1A1A1A]/85 px-4 py-2.5 text-center text-[13px] leading-snug text-white opacity-0 transition-all duration-200" id="toast"></div>
+</div>
+<script>
+    function openSheet(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      clearTimeout(el._hideTimer);
+      var backdrop = el.querySelector('[data-backdrop]');
+      var panel = el.querySelector('[data-panel]');
+      el.classList.remove('hidden');
+      void el.offsetHeight;
+      requestAnimationFrame(function () {
+        backdrop.classList.remove('opacity-0');
+        panel.classList.remove('translate-y-full');
+      });
+    }
+
+    function closeSheet(id) {
+      var el = document.getElementById(id);
+      if (!el || el.classList.contains('hidden')) return;
+      var backdrop = el.querySelector('[data-backdrop]');
+      var panel = el.querySelector('[data-panel]');
+      backdrop.classList.add('opacity-0');
+      panel.classList.add('translate-y-full');
+      el._hideTimer = setTimeout(function () {
+        el.classList.add('hidden');
+      }, 320);
+    }
+
+    function showToast(message) {
+      var toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('hidden');
+      requestAnimationFrame(function () {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+      });
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(function () {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(function () {
+          toast.classList.add('hidden');
+        }, 220);
+      }, 2200);
+    }
+
+    function confirmCreate() {
+      var name = document.getElementById('create-name').value.trim();
+      var course = document.getElementById('create-course').value.trim();
+      if (!name || !course) {
+        showToast('请填写小组名称和课程名称');
+        return;
+      }
+      closeSheet('sheet-create');
+      showToast('已创建「' + name + '」· 邀请口令 7K3M9Q');
+    }
+
+    function confirmJoin() {
+      var pin = document.getElementById('join-pin').value.trim();
+      if (!/^[A-Za-z0-9]{6}$/.test(pin)) {
+        showToast('请输入 6 位邀请口令');
+        return;
+      }
+      closeSheet('sheet-join');
+      showToast('已加入「第3组 · 需求文档攻坚」');
+    }
+  </script>
+</body>
+</html>
